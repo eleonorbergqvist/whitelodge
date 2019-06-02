@@ -1,4 +1,4 @@
-const User = require("./testmodel");
+const User = require("./user");
 
 const models = { User };
 

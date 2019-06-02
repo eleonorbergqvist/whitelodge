@@ -1,15 +1,21 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  username: {
+  userName: {
     type: String,
     unique: true,
+  },
+  firstName: {
+    type: String,
+  },
+  lastName: {
+    type: String,
   },
 });
 
 userSchema.statics.findByLogin = async function (login) {
   let user = await this.findOne({
-    username: login,
+    userName: login,
   });
 
   if (!user) {
@@ -19,6 +25,4 @@ userSchema.statics.findByLogin = async function (login) {
   return user;
 };
 
-const User = mongoose.model('User', userSchema);
-
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);

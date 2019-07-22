@@ -1,8 +1,10 @@
 const mongoose = require('mongoose');
 
-const connectDB = () => {
-  console.log(`connectDB url=${process.env.DATABASE_URL}`);
-  return mongoose.connect(process.env.DATABASE_URL);
+const connectDB = async () => {
+  let uri = process.env.DATABASE_URL;
+
+  console.log(`connectDB url=${uri}`);
+  return mongoose.connect(uri);
 };
 
 module.exports = {

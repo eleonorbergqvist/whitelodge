@@ -4,6 +4,15 @@ const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     unique: true,
+    lowercase: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    lowercase: true,
+  },
+  password: {
+    type: String,
   },
   firstName: {
     type: String,
@@ -14,9 +23,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.statics.findByLogin = async function (login) {
-  let user = await this.findOne({
-    userName: login,
-  });
+  let user = await this.findOne({ userName: login });
 
   if (!user) {
     user = await this.findOne({ email: login });

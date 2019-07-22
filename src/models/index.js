@@ -1,5 +1,6 @@
 const User = require("./user");
+const Accomodation = require("./accomodation");
 
-const models = { User };
+const models = { User, Accomodation };
 
 module.exports = models;

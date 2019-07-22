@@ -1,18 +1,18 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const accomodationSchema = new mongoose.Schema({
   title: {
-    type: String,
+    type: String
   },
   description: {
-    type: String,
+    type: String
   },
   city: {
-    type: String,
+    type: String
   },
   address: {
-    type: String,
-  },
+    type: String
+  }
 });
 
-module.exports = mongoose.model('accomodation', accomodationSchema);
+module.exports = mongoose.model("accomodation", accomodationSchema);

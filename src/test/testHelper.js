@@ -1,5 +1,5 @@
-const { MongoMemoryServer } = require('mongodb-memory-server');
-const mongoose = require('mongoose');
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const mongoose = require("mongoose");
 
 jest.setTimeout(60000);
 
@@ -16,7 +16,7 @@ class DBManager {
   }
 
   async stop() {
-    await mongoose.connection.close()
+    await mongoose.connection.close();
     return this.server.stop();
   }
 
@@ -36,5 +36,5 @@ const cleanupDB = () => dbmanager.cleanup();
 module.exports = {
   startDB,
   stopDB,
-  cleanupDB,
-}
+  cleanupDB
+};

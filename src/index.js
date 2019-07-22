@@ -2,6 +2,7 @@ const serverless = require('serverless-http');
 const express = require('express')
 const bodyParser = require('body-parser')
 const graphqlHTTP = require('express-graphql');
+const jwt = require('express-jwt');
 const db = require('./db');
 const { mergedSchema } = require("./schemas");
 
@@ -12,6 +13,7 @@ app.use(bodyParser.json())
 
 // parse application/x-www-form-urlencoded
 //app.use(bodyParser.urlencoded({ extended: false }))
+
 
 app.get('/', (_req, res) => {
   res.send('Hello World!')
@@ -42,9 +44,19 @@ app.get('/create-fixtures', async (_req, res) => {
   res.send("created fixtures");
 });
 
-app.use('/graphql', graphqlHTTP({
-  schema: mergedSchema,
-  graphiql: true
+const authMiddleware = jwt({
+  secret: process.env.JWT_SECRET,
+  credentialsRequired: false,
+})
+
+app.use('/graphql', authMiddleware, graphqlHTTP(req => {
+  return {
+    schema: mergedSchema,
+    graphiql: true,
+    context: {
+      user: req.user,
+    }
+  }
 }));
 
 const appHandler = serverless(app);

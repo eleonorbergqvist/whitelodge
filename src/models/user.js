@@ -1,28 +1,28 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
   userName: {
     type: String,
     unique: true,
-    lowercase: true,
+    lowercase: true
   },
   email: {
     type: String,
     unique: true,
-    lowercase: true,
+    lowercase: true
   },
   password: {
-    type: String,
+    type: String
   },
   firstName: {
-    type: String,
+    type: String
   },
   lastName: {
-    type: String,
-  },
+    type: String
+  }
 });
 
-userSchema.statics.findByLogin = async function (login) {
+userSchema.statics.findByLogin = async function(login) {
   let user = await this.findOne({ userName: login });
 
   if (!user) {
@@ -32,4 +32,4 @@ userSchema.statics.findByLogin = async function (login) {
   return user;
 };
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

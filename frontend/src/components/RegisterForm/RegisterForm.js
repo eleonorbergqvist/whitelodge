@@ -9,6 +9,9 @@ import  * as Yup from 'yup';
 import "./RegisterForm.css";
 
 const validationSchema = Yup.object().shape({
+  username: Yup.string()
+    .username("Username is not valid!")
+    .required("Username is required!"),
   email: Yup.string()
     .email("E-mail is not valid!")
     .required("E-mail is required!"),
@@ -24,6 +27,7 @@ class RegisterForm extends Component {
       <div className="RegisterForm">
         <Formik
           initialValues={{
+            username: '',
             email: '',
             password: ''
           }}
@@ -31,6 +35,7 @@ class RegisterForm extends Component {
           onSubmit={(values, actions) => {
             onSubmit(
               {
+                username: values.username,
                 password: values.password,
                 email: values.email,
               },
@@ -43,6 +48,14 @@ class RegisterForm extends Component {
             console.log(status);
             return (
               <Form>
+                <div className="field">
+                  <label className="label">Username</label>
+                  <div className="control">
+                    <Field className="input" type="username" name="username" />
+                    <ErrorMessage className="help is-danger" name="username" component="p" />
+                  </div>
+                </div>
+
                 <div className="field">
                   <label className="label">Email</label>
                   <div className="control">

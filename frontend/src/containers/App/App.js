@@ -16,7 +16,7 @@ const App = () => {
     <ApolloProvider client={client}>
       <div className="App">
         <header className="App__Header">
-            <ListUsers />
+          <ListUsers />
         </header>
         <BrowserRouter>
           <Switch>

@@ -6,7 +6,7 @@ import {
   ErrorMessage,
 } from 'formik';
 import  * as Yup from 'yup';
-import "./RegisterForm.css";
+import "./LoginForm.css";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -17,11 +17,11 @@ const validationSchema = Yup.object().shape({
     .required("Password is required!"),
 });
 
-class RegisterForm extends Component {
+class LoginForm extends Component {
   render() {
     const onSubmit = this.props.onSubmit;
     return (
-      <div className="RegisterForm">
+      <div className="LoginForm">
         <Formik
           initialValues={{
             email: '',
@@ -71,4 +71,4 @@ class RegisterForm extends Component {
   }
 }
 
-export default RegisterForm;
+export default LoginForm;

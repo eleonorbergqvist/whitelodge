@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
+import { gql } from "apollo-boost";
+import { Mutation } from "react-apollo";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 import "./Register.css";
 
-class Register extends Component {
+const REGISTER_USER = gql`
+  mutation registerUser($userName: String!, $email: String!, $password: String!) {
+    registerUser(userName: $userName, email: $email, password: $password) {
+      userName,
+      email,
+    }
+  }
+`;
 
+
+class Register extends Component {
   handleSubmit = async (values, actions) => {
     // actions.setSubmitting(true);
 
@@ -39,10 +50,18 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="Register container">
-        <h1>Register</h1>
-        <RegisterForm onSubmit={this.handleSubmit}/>
-      </div>
+      <Mutation mutation={REGISTER_USER}>
+        {(registerUser, { data, error, loading, called, ...rest}) => (
+          <div className="Register container">
+            {error && <p>Error: {error.message}</p>}
+            <h1>Register</h1>
+            <RegisterForm onSubmit={(values, actions) => {
+              //console.log(values);
+              registerUser({ variables: values });
+            }}/>
+          </div>
+        )}
+      </Mutation>
     )
   }
 }
